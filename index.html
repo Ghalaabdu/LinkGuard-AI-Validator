@@ -1,1 +1,243 @@
-/Users/ghalaabdullah/Desktop/MyProject/index.html
+<!DOCTYPE html>
+<html lang="en" id="htmlTag">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkGuard | URL Validator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deepBlue: '#15173D',
+                        iceGray: '#EAEFEF',
+                        warmWhite: '#FAF3E1'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', 'Tajawal', sans-serif; scroll-behavior: smooth; }
+        .hero-bg {
+            background: linear-gradient(to bottom, rgba(21, 23, 61, 0.8), #15173D), 
+                        url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=2070');
+            background-size: cover;
+            background-position: center;
+        }
+      
+        [lang="ar"] { direction: rtl; }
+        [lang="en"] { direction: ltr; }
+    </style>
+</head>
+<body class="bg-deepBlue text-warmWhite transition-all duration-500">
+<nav class="fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center bg-deepBlue/50 backdrop-blur-lg border-b border-white/5">
+    
+    <div class="flex items-center gap-2">
+        <div class="bg-iceGray text-deepBlue p-1.5 rounded-lg font-black text-xl leading-none italic">L</div>
+        <span id="logoText" class="font-extrabold text-xl tracking-tighter text-warmWhite">LinkGuard</span>
+    </div>
+
+    <div class="hidden md:flex gap-8 text-sm font-medium text-warmWhite/60">
+        <a href="#" class="hover:text-iceGray transition">Home</a>
+        <a href="#tool" class="hover:text-iceGray transition">Checker</a>
+    </div>
+
+    <button onclick="toggleLanguage()" id="langBtn" 
+        class="bg-white/10 border border-white/20 px-4 py-2 rounded-xl text-xs font-bold hover:bg-iceGray hover:text-deepBlue transition-all uppercase tracking-widest">
+        العربية
+    </button>
+</nav>
+
+    <header class="hero-bg min-h-screen flex flex-col items-center justify-center text-center px-4">
+        <h1 id="heroTitle" class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight">
+            Stop Clicking <span class="text-iceGray">Blindly</span>
+        </h1>
+        <p id="heroDesc" class="text-lg md:text-xl text-warmWhite/70 max-w-2xl mb-10">
+            The most advanced tool to verify link safety and validity in seconds. Protect your digital journey with one click
+        </p>
+        <a href="#tool" id="startBtn" class="bg-iceGray text-deepBlue px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl">
+            Start Checking Now ↓
+        </a>
+    </header>
+
+    <section id="tool" class="py-24 flex items-center justify-center px-4">
+        <div class="p-10 rounded-3xl w-full max-w-xl border border-white/10 shadow-2xl bg-white/5 backdrop-blur-md">
+            <h2 id="toolTitle" class="text-3xl font-bold text-center mb-8">Validate Your URL</h2>
+            
+            <div class="space-y-6">
+                <div>
+                    <label id="inputLabel" class="block text-xs font-bold text-warmWhite/40 uppercase tracking-widest mb-3">Target Link</label>
+                    <input type="text" id="urlInput" placeholder="https://secure-link.com" 
+                        class="w-full bg-deepBlue border-2 border-white/10 p-4 rounded-2xl text-warmWhite focus:border-iceGray outline-none transition-all text-left" dir="ltr">
+                </div>
+                
+                <button onclick="checkURL()" id="checkBtn"
+                    class="w-full bg-iceGray hover:bg-white text-deepBlue font-bold py-4 rounded-2xl transition duration-300 shadow-lg active:scale-95">
+                    Analyze Link
+                </button>
+
+                <div id="result" class="mt-6 p-4 rounded-2xl text-center font-semibold hidden border border-white/20"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 border-t border-white/5 text-center">
+        <p id="footerText" class="text-warmWhite/30 text-sm">
+            © 2026 LinkGuard Tool. All rights reserved. <br>Designed for security and speed.
+        </p>
+    </footer>
+
+    <script>
+    
+
+    const translations = {
+        en: {
+            logoText: 'LinkGuard',
+            heroTitle: 'Stop Clicking <span class="text-iceGray">Blindly.</span>',
+            heroDesc: 'The most advanced tool to verify link safety and validity in seconds. Protect your digital journey with one click.',
+            startBtn: 'Start Checking Now ↓',
+            toolTitle: 'Validate Your URL',
+            inputLabel: 'Target Link',
+            checkBtn: 'Analyze Link',
+            footerText: '© 2026 LinkGuard Tool. All rights reserved. <br>Designed for security and speed.',
+            langBtn: 'العربية',
+            valid: ' Link structure is valid!',
+            invalid: 'Invalid URL. Please include http:// or https://'
+        },
+        ar: {
+            logoText: 'لينك جارد',
+            heroTitle: 'لا تضغط <span class="text-iceGray">بشكل عشوائي</span>',
+            heroDesc: 'الأداة الأكثر تقدماً للتحقق من سلامة وصلاحية الروابط في ثوانٍ. احمِ رحلتك الرقمية بنقرة واحدة',
+            startBtn: 'ابدأ الفحص الآن ↓',
+            toolTitle: 'افحص الرابط الخاص بك',
+            inputLabel: 'الرابط المطلوب',
+            checkBtn: 'تحليل الرابط',
+            footerText: '© 2026 أداة LinkGuard. جميع الحقوق محفوظة. <br>صُمم للأمان والسرعة.',
+            langBtn: 'English',
+            valid: 'صياغة الرابط صحيحة!',
+            invalid: 'رابط غير صالح. يرجى التأكد من وجود http:// أو https://'
+        }
+    };
+
+   
+    let currentLang = 'en';
+
+    
+    function toggleLanguage() {
+     
+        currentLang = (currentLang === 'en') ? 'ar' : 'en';
+        
+        const htmlTag = document.getElementById('htmlTag');
+        
+      
+        htmlTag.setAttribute('lang', currentLang);
+        htmlTag.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+
+    
+        document.getElementById('logoText').innerText = translations[currentLang].logoText;
+        document.getElementById('heroTitle').innerHTML = translations[currentLang].heroTitle;
+        document.getElementById('heroDesc').innerText = translations[currentLang].heroDesc;
+        document.getElementById('startBtn').innerText = translations[currentLang].startBtn;
+        document.getElementById('toolTitle').innerText = translations[currentLang].toolTitle;
+        document.getElementById('inputLabel').innerText = translations[currentLang].inputLabel;
+        document.getElementById('checkBtn').innerText = translations[currentLang].checkBtn;
+        document.getElementById('footerText').innerHTML = translations[currentLang].footerText;
+        document.getElementById('langBtn').innerText = translations[currentLang].langBtn;
+        
+    
+        document.getElementById('result').classList.add('hidden');
+    }
+
+    
+    function checkURL() {
+    const urlInput = document.getElementById('urlInput').value.trim();
+    const result = document.getElementById('result');
+    const checkBtn = document.getElementById('checkBtn');
+    
+    if (!urlInput) return;
+
+  
+    result.classList.remove('hidden');
+    result.innerHTML = currentLang === 'en' ? "🤖 AI is analyzing..." : "🤖 الذكاء الاصطناعي يحلل...";
+    result.className = "mt-6 p-6 rounded-2xl border border-white/20 text-white bg-white/5 animate-pulse text-center";
+
+  
+    setTimeout(() => {
+        try {
+            const urlObj = new URL(urlInput);
+            let riskScore = 0;
+            let reasons = [];
+
+            
+            
+     
+            if (urlObj.protocol !== "https:") {
+                riskScore += 40;
+                reasons.push(currentLang === 'en' ? "Unsecured connection (HTTP)" : "اتصال غير آمن (HTTP)");
+            }
+
+            const suspiciousWords = ['login', 'verify', 'update', 'banking', 'secure', 'free', 'gift', 'win'];
+            suspiciousWords.forEach(word => {
+                if (urlInput.toLowerCase().includes(word)) {
+                    riskScore += 25;
+                    reasons.push(currentLang === 'en' ? `Suspicious keyword: ${word}` : `كلمة مشبوهة: ${word}`);
+                }
+            });
+
+           
+            if (urlInput.length > 60) {
+                riskScore += 30;
+                reasons.push(currentLang === 'en' ? "Extremely long URL (Potential masking)" : "رابط طويل جداً (احتمال تمويه)");
+            }
+
+            let statusClass = "";
+            let aiMessage = "";
+
+            if (riskScore >= 60) {
+                statusClass = "border-red-500 text-red-400 bg-red-500/10";
+                aiMessage = currentLang === 'en' ? "AI Alert: High Risk!" : "تحذير: خطورة عالية!";
+            } else if (riskScore > 0) {
+                statusClass = "border-yellow-500 text-yellow-400 bg-yellow-500/10";
+                aiMessage = currentLang === 'en' ? "AI Analysis: Moderate Caution" : "تحليل: حذر متوسط";
+            } else {
+                statusClass = "border-green-500 text-green-400 bg-green-500/10";
+                aiMessage = currentLang === 'en' ? "AI Analysis: Safe to visit" : "تحليل: الرابط يبدو آمناً";
+            }
+
+            // --- عرض النتيجة في الصفحة ---
+            result.classList.remove('animate-pulse');
+            result.className = `mt-6 p-6 rounded-2xl border shadow-lg transition-all duration-500 ${statusClass}`;
+            
+            result.innerHTML = `
+                <div class="space-y-4 text-left">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-lg italic tracking-tight">${aiMessage}</span>
+                        <span class="text-xs font-mono px-2 py-1 bg-white/10 rounded">Score: ${riskScore}/100</span>
+                    </div>
+                    <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+                        <div class="h-full transition-all duration-1000 shadow-[0_0_10px_currentColor]" 
+                             style="width: ${riskScore || 5}%; background-color: currentColor;"></div>
+                    </div>
+                    ${reasons.length > 0 ? `
+                        <ul class="text-xs space-y-1 opacity-80 list-none">
+                            ${reasons.map(r => `<li>⚠️ ${r}</li>`).join('')}
+                        </ul>
+                    ` : `<p class="text-xs opacity-70">${currentLang === 'en' ? 'No immediate threats detected.' : 'لم يتم اكتشاف تهديدات مباشرة.'}</p>`}
+                </div>
+            `;
+
+        } catch (e) {
+         
+            result.classList.remove('animate-pulse');
+            result.innerHTML = translations[currentLang].invalid;
+            result.className = "mt-6 p-4 rounded-2xl text-center font-semibold border border-red-500 text-red-400 bg-red-500/10";
+        }
+    }, 800);
+}
+
+    </script>
+</body>
+</html>
